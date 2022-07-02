@@ -41,4 +41,4 @@ AREAS = {
 NEIGHBORHOODS = ["russian hill",
                  "nob hill"]
 
-SLEEP_TIMER = 20 * 60
+SLEEP_TIMER = 5 * 60
