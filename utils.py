@@ -41,6 +41,7 @@ def in_area(coords, box):
     return False
 
 def check_for_record(result):
+    print(session.query(Listing).filter_by(cl_id=result["id"]).first())
     if session.query(Listing).filter_by(cl_id=result["id"]).first() is None:
         return False
     return True
@@ -58,8 +59,8 @@ def store_in_db(result):
         name=result["name"],
         price=price,
         location=result["where"],
-        cl_id=result["id"],
-        area=result["area"],
+        cl_id=result["id"]#,
+        #area=result["area"],
     )
 
     # Save the listing so we don't grab it again.

@@ -43,33 +43,34 @@ def scrape_for_apartments():
                                       'max_price': settings.MAX_PRICE,
                                       'min_price': settings.MIN_PRICE,
                                       'laundry': settings.LAUNDRY_OPTIONS,
-                                      'parking': settings.PARKING_OPTIONS
+                                      #'parking': settings.PARKING_OPTIONS
                                       #'housing_type': settings.HOUSING_TYPE
                                       })
     #adding a counter to limit the amount of results that can be sent at one time
     counter = 0
     for result in cl_h.get_results(sort_by='newest', geotagged=True):
         if check_for_record(result):
-        # else:
-        #     counter += 1
-        #     geotag = result["geotag"]
-        #     #set blank area
-        #     area = ""
-        #     for a, coords in settings.AREAS.items():
-        #         print(result);
-        #         if geotag is not None and in_area(geotag, coords):
-        #             area = a
-        #     #couldn't find from Geotag, string search the listing
-        #     if area == "":
-        #         # print settings.NEIGHBORHOODS
-        #         for hood in settings.NEIGHBORHOODS:
-        #             if result["where"] is not None and hood in result["where"].lower():
-        #                 area = hood
-        #     if area != '' and counter < 10:
-            store_in_db(result)
-            client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
-            text = "{} per month in {}.\n {}".format(result['price'], result['where'], result["url"])
-            message = client.messages.create(
-                            messaging_service_sid=settings.MS_SID,
-                            body=text,
-                            to=settings.TARGET_PHONE_NUMBER)
+            continue
+        else:
+            counter += 1
+            geotag = result["geotag"]
+            #set blank area
+            area = ""
+            for a, coords in settings.AREAS.items():
+                print(result);
+                if geotag is not None and in_area(geotag, coords):
+                    area = a
+            #couldn't find from Geotag, string search the listing
+            if area == "":
+                # print settings.NEIGHBORHOODS
+                for hood in settings.NEIGHBORHOODS:
+                    if result["where"] is not None and hood in result["where"].lower():
+                        area = hood
+            if area != '' and counter < 10:
+                store_in_db(result)
+                client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
+                text = "{} per month in {}.\n {}".format(result['price'], result['where'], result["url"])
+                message = client.messages.create(
+                                messaging_service_sid=settings.MS_SID,
+                                body=text,
+                                to=settings.TARGET_PHONE_NUMBER)
