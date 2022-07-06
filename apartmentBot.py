@@ -52,12 +52,10 @@ def scrape_for_apartments():
         if check_for_record(result):
             continue
         else:
-            counter += 1
             geotag = result["geotag"]
             #set blank area
             area = ""
             for a, coords in settings.AREAS.items():
-                print(result);
                 if geotag is not None and in_area(geotag, coords):
                     area = a
             #couldn't find from Geotag, string search the listing
@@ -68,6 +66,7 @@ def scrape_for_apartments():
                         area = hood
             if area != '' and counter < 10:
                 store_in_db(result)
+                counter += 1
                 client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
                 text = "{} per month in {}.\n {}".format(result['price'], result['where'], result["url"])
                 message = client.messages.create(
