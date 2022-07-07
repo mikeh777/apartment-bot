@@ -35,13 +35,11 @@ session = Session()
 
 #define geolocating function
 def in_area(coords, box):
-    print(box[0][0] < coords[1] < box[1][0], box[1][1] < coords[0] < box[0][1])
     if box[0][0] < coords[1] < box[1][0] and box[1][1] < coords[0] < box[0][1]:
         return True
     return False
 
 def check_for_record(result):
-    print(session.query(Listing).filter_by(cl_id=result["id"]).first())
     if session.query(Listing).filter_by(cl_id=result["id"]).first() is None:
         return False
     return True

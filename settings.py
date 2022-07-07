@@ -10,11 +10,11 @@ TARGET_PHONE_NUMBER = os.environ["PHONE_NUMBER"]
 CL_SITE = 'sfbay'
 CL_AREA = 'sfc'
 CL_CATEGORY = 'apa'
-MAX_NUM_BEDROOMS = 2
+MAX_NUM_BEDROOMS = 3
 MIN_NUM_BEDROOMS = 3
 POSTED_TODAY = True
 MAX_PRICE = 6000
-MIN_PRICE = 5000
+MIN_PRICE = 4500
 LAUNDRY_OPTIONS = ['w/d hookups', 'w/d in unit', 'laundry in bldg', 'laundry on site']
 PARKING_OPTIONS = ['carport', 'attached garage', 'detached garage']
 HOUSING_TYPE = ['apartment', 'condo', 'flat', 'house', 'loft']
@@ -41,4 +41,4 @@ AREAS = {
 NEIGHBORHOODS = ["russian hill",
                  "nob hill"]
 
-SLEEP_TIMER = 5 * 60
+SLEEP_TIMER = 20 * 60

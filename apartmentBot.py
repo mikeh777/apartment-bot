@@ -42,8 +42,8 @@ def scrape_for_apartments():
                                       'max_bedrooms': settings.MAX_NUM_BEDROOMS,
                                       'max_price': settings.MAX_PRICE,
                                       'min_price': settings.MIN_PRICE,
-                                      'laundry': settings.LAUNDRY_OPTIONS#,
-                                      #'parking': settings.PARKING_OPTIONS
+                                      'laundry': settings.LAUNDRY_OPTIONS,
+                                      'parking': settings.PARKING_OPTIONS
                                       #'housing_type': settings.HOUSING_TYPE
                                       })
     #adding a counter to limit the amount of results that can be sent at one time
@@ -65,6 +65,7 @@ def scrape_for_apartments():
                     if result["where"] is not None and hood in result["where"].lower():
                         area = hood
             if area != '' and counter < 10:
+                print('Conditions satisfied. Sending texting...')
                 store_in_db(result)
                 counter += 1
                 client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
@@ -73,3 +74,5 @@ def scrape_for_apartments():
                                 messaging_service_sid=settings.MS_SID,
                                 body=text,
                                 to=settings.TARGET_PHONE_NUMBER)
+    if counter == 0:
+        print("Scrape ran with no results.")
