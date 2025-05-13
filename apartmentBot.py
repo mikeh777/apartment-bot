@@ -70,7 +70,4 @@ def scrape_for_apartments():
                 store_in_db(result)
                 client = Client(settings.ACCOUNT_SID, settings.AUTH_TOKEN)
                 text = "{} per month in {}.\n {}".format(result['price'], result['where'], result["url"])
-                message = client.messages.create(
-                                messaging_service_sid=settings.MS_SID,
-                                body=text,
-                                to=settings.TARGET_PHONE_NUMBER)
+                message = client.messages.create(body=text, from = settings.TWILIO_PHONE_NUMBER, to = settings.TARGET_PHONE_NUMBER)
