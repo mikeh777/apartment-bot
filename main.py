@@ -17,6 +17,9 @@ while True:
         print("Error with the scraping:", sys.exc_info()[0])
         sys.stdout.flush()
         traceback.print_exc()
+        print(f"Sleeping for {settings.SLEEP_TIMER/60} minutes.")
+        sys.stdout.flush()
+        time.sleep(settings.SLEEP_TIMER)
     else:
         print("{}: Done running. Sleeping.".format(time.ctime()))
         sys.stdout.flush()
